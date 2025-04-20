@@ -1,0 +1,30 @@
+[{
+  "_id": {
+    "$oid": "68053f58f22cb0b83520b5a5"
+  },
+  "name": "newfolder",
+  "parentFolder": null,
+  "user": {
+    "$oid": "680531efbbf40c880826462f"
+  },
+  "createdAt": {
+    "$date": "2025-04-20T18:39:20.991Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68053fd7f22cb0b83520b5ac"
+  },
+  "name": "newfolder123",
+  "parentFolder": {
+    "$oid": "68053f58f22cb0b83520b5a5"
+  },
+  "user": {
+    "$oid": "680531efbbf40c880826462f"
+  },
+  "createdAt": {
+    "$date": "2025-04-20T18:41:27.085Z"
+  },
+  "__v": 0
+}]
