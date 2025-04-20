@@ -1,0 +1,2 @@
+# newmind
+machine_Test
