@@ -1,0 +1,86 @@
+
+
+<!-- create new user -->
+POST
+http://localhost:3001/api/users
+{
+    "name" : "Vinod",
+    "email" : "123@gmail.com",
+    "password" : "Admin@123"
+}
+
+
+<!-- Login user  -->
+POST 
+http://localhost:3001/api/users/login
+{
+    "email" : "123@gmail.com",
+    "password" : "Admin@123"
+}
+
+
+<!-- get users list -->
+
+GET
+http://localhost:3001/api/users/
+
+'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2ODA1MzFlZmJiZjQwYzg4MDgyNjQ2MmYiLCJpYXQiOjE3NDUxNzE3MzgsImV4cCI6MTc0NTE3NTMzOH0.41R841ZjlG28E4y2cJ7gBXhd4L8EtU53CNf7Eto_oyY'
+
+
+
+<!-- get list of folder by user -->
+1.	GET /viewstore 
+ GET
+ http://localhost:3002/api/viewstore
+ 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2ODA1MzFlZmJiZjQwYzg4MDgyNjQ2MmYiLCJpYXQiOjE3NDUxNzE3MzgsImV4cCI6MTc0NTE3NTMzOH0.41R841ZjlG28E4y2cJ7gBXhd4L8EtU53CNf7Eto_oyY'
+
+ <!-- get subfolde list -->
+2.	GET /viewstore/:folderId 
+Description: Get the content of a folder, including subfolders and documents. 
+http://localhost:3002/api/viewstore/68053f58f22cb0b83520b5a5
+'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2ODA1MzFlZmJiZjQwYzg4MDgyNjQ2MmYiLCJpYXQiOjE3NDUxNzE3MzgsImV4cCI6MTc0NTE3NTMzOH0.41R841ZjlG28E4y2cJ7gBXhd4L8EtU53CNf7Eto_oyY'
+
+ 
+
+ <!-- Create new folder wihout parent folder -->
+ 3.	POST /folders 
+POST
+ http://localhost:3002/api/folders
+ 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2ODA1MzFlZmJiZjQwYzg4MDgyNjQ2MmYiLCJpYXQiOjE3NDUxNzE3MzgsImV4cCI6MTc0NTE3NTMzOH0.41R841ZjlG28E4y2cJ7gBXhd4L8EtU53CNf7Eto_oyY'
+
+ {
+    "name": "newfolder"
+  }
+
+
+   <!-- Create new folder wihout parent folder -->
+   3.	POST /folders 
+POST
+http://localhost:3002/api/folders
+'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2ODA1MzFlZmJiZjQwYzg4MDgyNjQ2MmYiLCJpYXQiOjE3NDUxNzE3MzgsImV4cCI6MTc0NTE3NTMzOH0.41R841ZjlG28E4y2cJ7gBXhd4L8EtU53CNf7Eto_oyY'
+
+{
+ 
+    "name": "newfolder",
+      "parentFolder": "68053f58f22cb0b83520b5a5" 
+
+  
+ }
+
+<!-- update folder by fodler id -->
+ 4.	PUT /folders/:id 
+ a.	Description: Update folder details (e.g., rename folder). 
+ PUT
+ http://localhost:3002/api/folders/68053fbaf22cb0b83520b5a8
+ 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2ODA1MzFlZmJiZjQwYzg4MDgyNjQ2MmYiLCJpYXQiOjE3NDUxNzE3MzgsImV4cCI6MTc0NTE3NTMzOH0.41R841ZjlG28E4y2cJ7gBXhd4L8EtU53CNf7Eto_oyY'
+
+ {
+    "name": "newfolder12"
+    
+  }
+  
+
+5.	DELETE /folders/:id 
+a.	Description: Delete a folder. 
+DELETE
+http://localhost:3002/api/folders/68053fbaf22cb0b83520b5a8
