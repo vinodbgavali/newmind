@@ -1,0 +1,132 @@
+<%- include('partials/header') %>
+<h2>Folder: <span id="folder-name"></span></h2>
+<% if (error) { %>
+  <div class="alert alert-danger"><%= error %></div>
+<% } %>
+<div class="row">
+  <div class="col-md-6">
+    <h3>Subfolders</h3>
+    <button class="btn btn-success mb-3" data-bs-toggle="modal" data-bs-target="#createFolderModal">Create Subfolder</button>
+    <div class="row" id="subfolder-list"></div>
+  </div>
+  <div class="col-md-6">
+    <h3>Documents</h3>
+    <button class="btn btn-success mb-3" data-bs-toggle="modal" data-bs-target="#createDocumentModal">Create Document</button>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Title</th>
+          <th>Created</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody id="document-list"></tbody>
+    </table>
+  </div>
+</div>
+
+<!-- Create Folder Modal -->
+<div class="modal fade" id="createFolderModal" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Create Subfolder</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <form id="create-folder-form" onsubmit="createFolder(event)">
+          <div class="mb-3">
+            <label for="name" class="form-label">Folder Name</label>
+            <input type="text" class="form-control" id="name" name="name" required>
+          </div>
+          <button type="submit" class="btn btn-primary">Create</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Create Document Modal -->
+<div class="modal fade" id="createDocumentModal" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Create Document</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <form id="create-document-form" onsubmit="createDocument(event)">
+          <div class="mb-3">
+            <label for="title" class="form-label">Title</label>
+            <input type="text" class="form-control" id="title" name="title" required>
+          </div>
+          <div class="mb-3">
+            <label for="content" class="form-label">Content</label>
+            <textarea class="form-control" id="content" name="content"></textarea>
+          </div>
+          <div class="mb-3">
+            <label for="file" class="form-label">File (optional)</label>
+            <input type="file" class="form-control" id="file" name="file">
+          </div>
+          <input type="hidden" name="folder" value="<%= folderId %>">
+          <button type="submit" class="btn btn-primary">Create</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Edit Folder Modal -->
+<div class="modal fade" id="editFolderModal" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Edit Folder</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <form id="edit-folder-form" onsubmit="updateFolder(event)">
+          <input type="hidden" id="edit-folder-id" name="id">
+          <div class="mb-3">
+            <label for="edit-folder-name" class="form-label">Folder Name</label>
+            <input type="text" class="form-control" id="edit-folder-name" name="name" required>
+          </div>
+          <button type="submit" class="btn btn-primary">Update</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Edit Document Modal -->
+<div class="modal fade" id="editDocumentModal" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Edit Document</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <form id="edit-document-form" onsubmit="updateDocument(event)">
+          <input type="hidden" id="edit-document-id" name="id">
+          <div class="mb-3">
+            <label for="edit-document-title" class="form-label">Title</label>
+            <input type="text" class="form-control" id="edit-document-title" name="title" required>
+          </div>
+          <div class="mb-3">
+            <label for="edit-document-content" class="form-label">Content</label>
+            <textarea class="form-control" id="edit-document-content" name="content"></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary">Update</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<%- include('partials/footer') %>
+<script>
+  const folderId = window.location.pathname.split('/').pop();
+  document.getElementById('create-document-form').querySelector('input[name="folder"]').value = folderId;
+  document.getElementById('create-folder-form').dataset.parentFolder = folderId;
+  loadFolder(folderId);
+</script>

@@ -1,0 +1,62 @@
+<%- include('partials/head1') %>
+<%- include('partials/sidebar') %>
+<h2>Dashboard</h2>
+
+<div class="row">
+  <div class="col-md-6">
+    <h3>Folders</h3>
+    <button class="btn btn-success mb-3" data-bs-toggle="modal" data-bs-target="#createFolderModal">Create Folder</button>
+    <div class="row" id="folder-list"></div>
+  </div>
+  <div class="col-md-6">
+    <h3>Total Documents</h3>
+    <p id="total-documents">0</p>
+  </div>
+</div>
+
+<!-- Create Folder Modal -->
+<div class="modal fade" id="createFolderModal" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Create Folder</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <form id="create-folder-form" onsubmit="createFolder(event)">
+          <div class="mb-3">
+            <label for="name" class="form-label">Folder Name</label>
+            <input type="text" class="form-control" id="name" name="name" required>
+          </div>
+          <button type="submit" class="btn btn-primary">Create</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Edit Folder Modal -->
+<div class="modal fade" id="editFolderModal" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Edit Folder</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <form id="edit-folder-form" onsubmit="updateFolder(event)">
+          <input type="hidden" id="edit-folder-id" name="id">
+          <div class="mb-3">
+            <label for="edit-folder-name" class="form-label">Folder Name</label>
+            <input type="text" class="form-control" id="edit-folder-name" name="name" required>
+          </div>
+          <button type="submit" class="btn btn-primary">Update</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<%- include('partials/footer') %>
+<script>
+  loadDashboard();
+</script>

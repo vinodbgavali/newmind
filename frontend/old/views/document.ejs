@@ -1,0 +1,82 @@
+<%- include('partials/header') %>
+<h2>Document: <span id="document-title"></span></h2>
+<% if (error) { %>
+  <div class="alert alert-danger"><%= error %></div>
+<% } %>
+<div class="row">
+  <div class="col-md-6">
+    <h3>Details</h3>
+    <p><strong>Content:</strong> <span id="document-content"></span></p>
+    <p><strong>Created:</strong> <span id="document-created"></span></p>
+    <button class="btn btn-success mb-3" data-bs-toggle="modal" data-bs-target="#createVersionModal">Add Version</button>
+  </div>
+  <div class="col-md-6">
+    <h3>Versions</h3>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Version</th>
+          <th>File URL</th>
+          <th>Uploaded</th>
+        </tr>
+      </thead>
+      <tbody id="version-list"></tbody>
+    </table>
+  </div>
+</div>
+
+<!-- Create Version Modal -->
+<div class="modal fade" id="createVersionModal" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Add Version</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <form id="create-version-form" onsubmit="createVersion(event)">
+          <div class="mb-3">
+            <label for="versionNumber" class="form-label">Version Number (e.g., 1.1)</label>
+            <input type="text" class="form-control" id="versionNumber" name="versionNumber" required>
+          </div>
+          <div class="mb-3">
+            <label for="file" class="form-label">File</label>
+            <input type="file" class="form-control" id="file" name="file" required>
+          </div>
+          <button type="submit" class="btn btn-primary">Add</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Edit Document Modal -->
+<div class="modal fade" id="editDocumentModal" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Edit Document</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <form id="edit-document-form" onsubmit="updateDocument(event)">
+          <input type="hidden" id="edit-document-id" name="id">
+          <div class="mb-3">
+            <label for="edit-document-title" class="form-label">Title</label>
+            <input type="text" class="form-control" id="edit-document-title" name="title" required>
+          </div>
+          <div class="mb-3">
+            <label for="edit-document-content" class="form-label">Content</label>
+            <textarea class="form-control" id="edit-document-content" name="content"></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary">Update</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<%- include('partials/footer') %>
+<script>
+  const documentId = window.location.pathname.split('/').pop();
+  loadDocument(documentId);
+</script>

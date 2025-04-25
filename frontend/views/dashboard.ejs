@@ -1,0 +1,131 @@
+<%- include('partials/header') %>
+  <%- include('partials/sidebar') %>
+
+    <div class="main">
+
+      <%- include('partials/appheader') %>
+
+        <div class="container mt-4">
+          <div class="row mb-3">
+            <div class="col">
+              <div class="card text-white bg-primary">
+                <div class="card-body">
+                  <h5 class="card-title">Total Posts</h5>
+                </div>
+              </div>
+            </div>
+            <div class="col">
+              <div class="card text-white bg-success">
+                <div class="card-body">
+                  <h5 class="card-title">Published Posts</h5>
+                </div>
+              </div>
+            </div>
+            <div class="col">
+              <div class="card text-white bg-warning">
+                <div class="card-body">
+                  <h5 class="card-title">Unpublished Posts</h5>
+                </div>
+              </div>
+            </div>
+            <div class="col">
+              <div class="card text-white bg-danger">
+                <div class="card-body">
+                  <h5 class="card-title">Draft Posts</h5>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card mb-3">
+            <div class="card-body">Leads</div>
+          </div>
+
+          <div class="card mb-3">
+            <div class="card-body">Newsletter subscriptions</div>
+          </div>
+
+          <h4>My Posts</h4>
+          <div class="row mb-3">
+            <div class="col">
+              <div class="card">
+                <div class="card-body">Assigned Posts</div>
+              </div>
+            </div>
+            <div class="col">
+              <div class="card">
+                <div class="card-body">Saved Posts</div>
+              </div>
+            </div>
+            <div class="col">
+              <div class="card">
+                <div class="card-body">Handovered Posts</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-8">
+              <h5>User Pending Posts</h5>
+              <table class="table table-bordered">
+                <thead>
+                  <tr>
+                    <th>Id</th>
+                    <th>User</th>
+                    <th>Assigned</th>
+                    <th>Draft</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <!-- Populate rows dynamically as needed -->
+                  <tr>
+                    <td>1</td>
+                    <td>Admin</td>
+                    <td>0</td>
+                    <td>1</td>
+                    <td><button class="btn btn-primary btn-sm">View Posts</button></td>
+                  </tr>
+                  <!-- Add more rows -->
+                </tbody>
+              </table>
+            </div>
+            <div class="col-md-4">
+              <h5>Team Pending Posts</h5>
+              <table class="table table-bordered">
+                <thead>
+                  <tr>
+                    <th>Team Name</th>
+                    <th>Assigned</th>
+                    <th>Draft</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>SEO Team</td>
+                    <td>6</td>
+                    <td>6</td>
+                    <td><button class="btn btn-primary btn-sm">View Posts</button></td>
+                  </tr>
+                  <!-- Add more rows -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+    </div>
+
+    <%- include('partials/footer') %>
+
+      <script>
+        // Auto-redirect if logged in
+        axios.get(`http://localhost:3001/api/users/validate-token`, { withCredentials: true })
+          .catch(() => {
+            window.location.href = '/login';
+          });
+      </script>
+
+      </body>
+
+      </html>

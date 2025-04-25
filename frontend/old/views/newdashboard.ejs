@@ -1,0 +1,1196 @@
+<%- include('partials/head1') %>
+</head>
+
+<body>
+    <%- include('partials/appHead') %>
+    <div class="wrapper d-flex align-items-stretch">
+        <%- include('partials/sidebar') %>
+        <div id="content" class="">
+            <div class=" container content_wrapper">
+              <!-- <h2 class="mb-4">Dashboard Page</h2> -->
+
+
+              <div class="row countWrapper ">
+                <div class="col-md-6 col-lg-3 my-1">
+                  <div class="card app_container1 bg-primary" style="">
+                    <a href="https://app-node.enterprisetalk.com:3000/postall" class=" text-white ">
+
+                      <h3 id="totalCount" class="counter" data-target="4826">
+
+                      </h3>
+                      <p class="m-0 text-gray-100">
+                        Total Posts
+                      </p>
+                    </a>
+
+                  </div>
+
+                </div>
+                <div class="col-md-6 col-lg-3 my-1">
+                  <div class="card app_container1 bg-success">
+                    <a href="https://app-node.enterprisetalk.com:3000/published-posts/publish" class=" text-white ">
+                      <h3 id="publishCount" class="counter" data-target="4792">
+
+                      </h3>
+                      <p class="m-0 text-gray-100">
+                        Published Posts
+                      </p>
+                    </a>
+
+                  </div>
+
+                </div>
+                <div class="col-md-6 col-lg-3 my-1">
+                  <div class="card app_container1 bg-warning" style="">
+                    <a href="https://app-node.enterprisetalk.com:3000/post-list/unpublish" class=" text-white ">
+                      <h3 id="unPublishCount" class="counter" data-target="34">
+
+                      </h3>
+                      <p class="m-0 text-gray-100">
+                        Unpublished Posts
+                      </p>
+                    </a>
+
+                  </div>
+
+                </div>
+                <div class="col-md-6 col-lg-3 my-1">
+                  <div class="card  app_container1 bg-danger" style="">
+                    <a href="https://app-node.enterprisetalk.com:3000/post-list/draft" class=" text-white ">
+                      <h3 id="draftCount" class="counter" data-target="25">
+
+                      </h3>
+                      <p class="m-0 text-gray-100">
+                        Draft Posts
+                      </p>
+                    </a>
+
+                  </div>
+
+                </div>
+                
+                <!--user assigned post  -->
+               
+              </div>
+              
+              <div class="row my-3 countWrapper ">
+                <div class="col-md-6 ">
+                  <a href="https://app-node.enterprisetalk.com:3000/connect_leads">
+
+                    <div class=" p-3 d-flex align-items-baseline border rounded app_container1">
+                      <h5 class=" text-black me-auto mb-0  ">
+                        Leads
+                      </h5>
+                      <h6 class=" text-black ms-auto mb-0 counter" id="leadsCount"
+                        data-target="202">
+
+                      </h6>
+                    </div>
+                  </a>
+                </div>
+                <div class="col-md-6 ">
+                  <a href="https://app-node.enterprisetalk.com:3000/subscription_leads">
+
+                    <div class=" p-3 d-flex align-items-baseline border rounded app_container1">
+                      <h5 class=" text-black me-auto mb-0  ">
+                        Newsletter subscriptions
+                      </h5>
+                      <h6 class=" text-black ms-auto mb-0 counter" id="NewsletterCount"
+                        data-target="71">
+
+                      </h6>
+                    </div>
+
+
+
+                  </a>
+                </div>
+
+
+              </div>
+              
+
+
+
+
+
+             
+              <div class="row my-3">
+                <h4>My Posts</h4>
+                <div class="col-md-8 col-lg-4  ">
+                  <a href="https://app-node.enterprisetalk.com:3000/assigned" class="  ">
+                  <div class="  app_container1  border-bottom border-danger border-5" >
+                   
+                      <h3 id="assignedCount" class="counter" data-target="0">
+
+                      </h3>
+                      <p class="m-0 text-gray-100">
+                        Assigned Posts
+                      </p>
+                   
+
+                  </div>
+                </a>
+
+                </div>
+                 <!--user  Saved post  -->
+                 <div class="col-md-8 col-lg-4 ">
+                  <a href="https://app-node.enterprisetalk.com:3000/draft" class="  ">
+                  <div class="  app_container1  border-bottom border-danger border-5" >
+                   
+                      <h3 id="savedCount" class="counter" data-target="1">
+
+                      </h3>
+                      <p class="m-0 text-gray-100">
+                        Saved Posts
+                      </p>
+                   
+
+                  </div>
+                </a>
+                </div>
+                <!--user handover post  -->
+                <div class="col-md-8 col-lg-4 ">
+                  <a href="https://app-node.enterprisetalk.com:3000/handover" class="  ">
+                  <div class="  app_container1  border-bottom border-danger border-5" >
+                   
+                      <h3 id="handoverCount" class="counter" data-target="0">
+
+                      </h3>
+                      <p class="m-0 text-gray-100">
+                        Handovered Posts
+                      </p>
+                 
+
+                  </div>
+                </a>
+                </div>
+               
+              </div>
+              
+            
+              
+              <div class="row ">
+                <div class="col-md-7 ">
+                  <div class="app_container1">
+                    <h4 class="mb-3">User Pending Posts</h4>
+                    <table id="userCountTable" class="row-border table table-striped table-responsive wrap"
+                      width="100%">
+                      <thead>
+                        <tr>
+                          <th>Id</th>
+                          <th>User</th>
+                          <!-- <th>Role</th> -->
+                          <th>Assigned</th>
+                          <th>Draft</th>
+                          <th class="text-center">Action</th>
+                        </tr>
+                      </thead>
+                      <tbody id="userInfo1">
+                        
+                          <tr class="odd">
+                            <td>
+                              1
+                            </td>
+                            <td>
+                             <h6 class="m-0"> Admin</h6>
+                             <p class="m-0 ">Admin</p> 
+                            </td>
+                            <!-- <td>
+                              Admin
+                            </td> -->
+                            <td>
+                              0
+                            </td>
+                            <td>
+                              1
+                            </td>
+                            <td>
+
+                              <div class="text-center">
+                                <a href="pending-user-posts/1"
+                                  class="updateBtn btn btn-sm btn-primary "
+                                  id="1">
+                                  View Posts</a>
+                              </div>
+
+                            </td>
+
+
+
+                          </tr>
+                          
+                          <tr class="odd">
+                            <td>
+                              2
+                            </td>
+                            <td>
+                             <h6 class="m-0"> Kanika Goswami</h6>
+                             <p class="m-0 ">Content Head</p> 
+                            </td>
+                            <!-- <td>
+                              Content Head
+                            </td> -->
+                            <td>
+                              0
+                            </td>
+                            <td>
+                              0
+                            </td>
+                            <td>
+
+                              <div class="text-center">
+                                <a href="pending-user-posts/2"
+                                  class="updateBtn btn btn-sm btn-primary disabled"
+                                  id="2">
+                                  View Posts</a>
+                              </div>
+
+                            </td>
+
+
+
+                          </tr>
+                          
+                          <tr class="odd">
+                            <td>
+                              3
+                            </td>
+                            <td>
+                             <h6 class="m-0"> Kanika Goswami</h6>
+                             <p class="m-0 ">Content Manager</p> 
+                            </td>
+                            <!-- <td>
+                              Content Manager
+                            </td> -->
+                            <td>
+                              0
+                            </td>
+                            <td>
+                              0
+                            </td>
+                            <td>
+
+                              <div class="text-center">
+                                <a href="pending-user-posts/3"
+                                  class="updateBtn btn btn-sm btn-primary disabled"
+                                  id="3">
+                                  View Posts</a>
+                              </div>
+
+                            </td>
+
+
+
+                          </tr>
+                          
+                          <tr class="odd">
+                            <td>
+                              4
+                            </td>
+                            <td>
+                             <h6 class="m-0"> Anushree Bhattacharya</h6>
+                             <p class="m-0 ">Content Writer</p> 
+                            </td>
+                            <!-- <td>
+                              Content Writer
+                            </td> -->
+                            <td>
+                              0
+                            </td>
+                            <td>
+                              0
+                            </td>
+                            <td>
+
+                              <div class="text-center">
+                                <a href="pending-user-posts/4"
+                                  class="updateBtn btn btn-sm btn-primary disabled"
+                                  id="4">
+                                  View Posts</a>
+                              </div>
+
+                            </td>
+
+
+
+                          </tr>
+                          
+                          <tr class="odd">
+                            <td>
+                              5
+                            </td>
+                            <td>
+                             <h6 class="m-0"> Apoorva Kasam</h6>
+                             <p class="m-0 ">Content Writer</p> 
+                            </td>
+                            <!-- <td>
+                              Content Writer
+                            </td> -->
+                            <td>
+                              0
+                            </td>
+                            <td>
+                              0
+                            </td>
+                            <td>
+
+                              <div class="text-center">
+                                <a href="pending-user-posts/5"
+                                  class="updateBtn btn btn-sm btn-primary disabled"
+                                  id="5">
+                                  View Posts</a>
+                              </div>
+
+                            </td>
+
+
+
+                          </tr>
+                          
+                          <tr class="odd">
+                            <td>
+                              6
+                            </td>
+                            <td>
+                             <h6 class="m-0"> Bineesh Mathew</h6>
+                             <p class="m-0 ">Content Writer</p> 
+                            </td>
+                            <!-- <td>
+                              Content Writer
+                            </td> -->
+                            <td>
+                              0
+                            </td>
+                            <td>
+                              0
+                            </td>
+                            <td>
+
+                              <div class="text-center">
+                                <a href="pending-user-posts/6"
+                                  class="updateBtn btn btn-sm btn-primary disabled"
+                                  id="6">
+                                  View Posts</a>
+                              </div>
+
+                            </td>
+
+
+
+                          </tr>
+                          
+                          <tr class="odd">
+                            <td>
+                              7
+                            </td>
+                            <td>
+                             <h6 class="m-0"> Swagata Ray</h6>
+                             <p class="m-0 ">Content Writer</p> 
+                            </td>
+                            <!-- <td>
+                              Content Writer
+                            </td> -->
+                            <td>
+                              0
+                            </td>
+                            <td>
+                              0
+                            </td>
+                            <td>
+
+                              <div class="text-center">
+                                <a href="pending-user-posts/7"
+                                  class="updateBtn btn btn-sm btn-primary disabled"
+                                  id="7">
+                                  View Posts</a>
+                              </div>
+
+                            </td>
+
+
+
+                          </tr>
+                          
+                          <tr class="odd">
+                            <td>
+                              8
+                            </td>
+                            <td>
+                             <h6 class="m-0"> Swapnil Mishra</h6>
+                             <p class="m-0 ">Content Writer</p> 
+                            </td>
+                            <!-- <td>
+                              Content Writer
+                            </td> -->
+                            <td>
+                              0
+                            </td>
+                            <td>
+                              0
+                            </td>
+                            <td>
+
+                              <div class="text-center">
+                                <a href="pending-user-posts/8"
+                                  class="updateBtn btn btn-sm btn-primary disabled"
+                                  id="8">
+                                  View Posts</a>
+                              </div>
+
+                            </td>
+
+
+
+                          </tr>
+                          
+                          <tr class="odd">
+                            <td>
+                              9
+                            </td>
+                            <td>
+                             <h6 class="m-0"> Tejdeep Desai</h6>
+                             <p class="m-0 ">Content Writer</p> 
+                            </td>
+                            <!-- <td>
+                              Content Writer
+                            </td> -->
+                            <td>
+                              0
+                            </td>
+                            <td>
+                              0
+                            </td>
+                            <td>
+
+                              <div class="text-center">
+                                <a href="pending-user-posts/9"
+                                  class="updateBtn btn btn-sm btn-primary disabled"
+                                  id="9">
+                                  View Posts</a>
+                              </div>
+
+                            </td>
+
+
+
+                          </tr>
+                          
+                          <tr class="odd">
+                            <td>
+                              10
+                            </td>
+                            <td>
+                             <h6 class="m-0"> Amit pawar</h6>
+                             <p class="m-0 ">SEO Manager</p> 
+                            </td>
+                            <!-- <td>
+                              SEO Manager
+                            </td> -->
+                            <td>
+                              0
+                            </td>
+                            <td>
+                              1
+                            </td>
+                            <td>
+
+                              <div class="text-center">
+                                <a href="pending-user-posts/10"
+                                  class="updateBtn btn btn-sm btn-primary "
+                                  id="10">
+                                  View Posts</a>
+                              </div>
+
+                            </td>
+
+
+
+                          </tr>
+                          
+                          <tr class="odd">
+                            <td>
+                              11
+                            </td>
+                            <td>
+                             <h6 class="m-0"> Amit Pawar</h6>
+                             <p class="m-0 ">SEO Team</p> 
+                            </td>
+                            <!-- <td>
+                              SEO Team
+                            </td> -->
+                            <td>
+                              0
+                            </td>
+                            <td>
+                              1
+                            </td>
+                            <td>
+
+                              <div class="text-center">
+                                <a href="pending-user-posts/11"
+                                  class="updateBtn btn btn-sm btn-primary "
+                                  id="11">
+                                  View Posts</a>
+                              </div>
+
+                            </td>
+
+
+
+                          </tr>
+                          
+                          <tr class="odd">
+                            <td>
+                              12
+                            </td>
+                            <td>
+                             <h6 class="m-0"> Bharat Malviya</h6>
+                             <p class="m-0 ">SEO Team</p> 
+                            </td>
+                            <!-- <td>
+                              SEO Team
+                            </td> -->
+                            <td>
+                              6
+                            </td>
+                            <td>
+                              4
+                            </td>
+                            <td>
+
+                              <div class="text-center">
+                                <a href="pending-user-posts/12"
+                                  class="updateBtn btn btn-sm btn-primary "
+                                  id="12">
+                                  View Posts</a>
+                              </div>
+
+                            </td>
+
+
+
+                          </tr>
+                          
+                          <tr class="odd">
+                            <td>
+                              13
+                            </td>
+                            <td>
+                             <h6 class="m-0"> Trishna Rotke</h6>
+                             <p class="m-0 ">SEO Team</p> 
+                            </td>
+                            <!-- <td>
+                              SEO Team
+                            </td> -->
+                            <td>
+                              0
+                            </td>
+                            <td>
+                              0
+                            </td>
+                            <td>
+
+                              <div class="text-center">
+                                <a href="pending-user-posts/13"
+                                  class="updateBtn btn btn-sm btn-primary disabled"
+                                  id="13">
+                                  View Posts</a>
+                              </div>
+
+                            </td>
+
+
+
+                          </tr>
+                          
+                          <tr class="odd">
+                            <td>
+                              14
+                            </td>
+                            <td>
+                             <h6 class="m-0"> Mandar Sapar</h6>
+                             <p class="m-0 ">Graphics Team</p> 
+                            </td>
+                            <!-- <td>
+                              Graphics Team
+                            </td> -->
+                            <td>
+                              0
+                            </td>
+                            <td>
+                              0
+                            </td>
+                            <td>
+
+                              <div class="text-center">
+                                <a href="pending-user-posts/14"
+                                  class="updateBtn btn btn-sm btn-primary disabled"
+                                  id="14">
+                                  View Posts</a>
+                              </div>
+
+                            </td>
+
+
+
+                          </tr>
+                          
+                          <tr class="odd">
+                            <td>
+                              15
+                            </td>
+                            <td>
+                             <h6 class="m-0"> Venkatesh Badam</h6>
+                             <p class="m-0 ">Graphics Team</p> 
+                            </td>
+                            <!-- <td>
+                              Graphics Team
+                            </td> -->
+                            <td>
+                              0
+                            </td>
+                            <td>
+                              0
+                            </td>
+                            <td>
+
+                              <div class="text-center">
+                                <a href="pending-user-posts/15"
+                                  class="updateBtn btn btn-sm btn-primary disabled"
+                                  id="15">
+                                  View Posts</a>
+                              </div>
+
+                            </td>
+
+
+
+                          </tr>
+                          
+                          <tr class="odd">
+                            <td>
+                              16
+                            </td>
+                            <td>
+                             <h6 class="m-0"> Shubham Munde</h6>
+                             <p class="m-0 ">Graphics Team</p> 
+                            </td>
+                            <!-- <td>
+                              Graphics Team
+                            </td> -->
+                            <td>
+                              1
+                            </td>
+                            <td>
+                              0
+                            </td>
+                            <td>
+
+                              <div class="text-center">
+                                <a href="pending-user-posts/16"
+                                  class="updateBtn btn btn-sm btn-primary "
+                                  id="16">
+                                  View Posts</a>
+                              </div>
+
+                            </td>
+
+
+
+                          </tr>
+                          
+                          <tr class="odd">
+                            <td>
+                              17
+                            </td>
+                            <td>
+                             <h6 class="m-0"> Fahad Patel</h6>
+                             <p class="m-0 ">SMO Manager</p> 
+                            </td>
+                            <!-- <td>
+                              SMO Manager
+                            </td> -->
+                            <td>
+                              0
+                            </td>
+                            <td>
+                              0
+                            </td>
+                            <td>
+
+                              <div class="text-center">
+                                <a href="pending-user-posts/17"
+                                  class="updateBtn btn btn-sm btn-primary disabled"
+                                  id="17">
+                                  View Posts</a>
+                              </div>
+
+                            </td>
+
+
+
+                          </tr>
+                          
+                          <tr class="odd">
+                            <td>
+                              18
+                            </td>
+                            <td>
+                             <h6 class="m-0"> Pranab Ghosh</h6>
+                             <p class="m-0 ">Marketing Head</p> 
+                            </td>
+                            <!-- <td>
+                              Marketing Head
+                            </td> -->
+                            <td>
+                              0
+                            </td>
+                            <td>
+                              0
+                            </td>
+                            <td>
+
+                              <div class="text-center">
+                                <a href="pending-user-posts/18"
+                                  class="updateBtn btn btn-sm btn-primary disabled"
+                                  id="18">
+                                  View Posts</a>
+                              </div>
+
+                            </td>
+
+
+
+                          </tr>
+                          
+                          <tr class="odd">
+                            <td>
+                              19
+                            </td>
+                            <td>
+                             <h6 class="m-0"> Test Publisher</h6>
+                             <p class="m-0 ">Publisher</p> 
+                            </td>
+                            <!-- <td>
+                              Publisher
+                            </td> -->
+                            <td>
+                              0
+                            </td>
+                            <td>
+                              0
+                            </td>
+                            <td>
+
+                              <div class="text-center">
+                                <a href="pending-user-posts/19"
+                                  class="updateBtn btn btn-sm btn-primary disabled"
+                                  id="19">
+                                  View Posts</a>
+                              </div>
+
+                            </td>
+
+
+
+                          </tr>
+                          
+                          <tr class="odd">
+                            <td>
+                              20
+                            </td>
+                            <td>
+                             <h6 class="m-0"> Seo Team</h6>
+                             <p class="m-0 ">SEO Team</p> 
+                            </td>
+                            <!-- <td>
+                              SEO Team
+                            </td> -->
+                            <td>
+                              0
+                            </td>
+                            <td>
+                              0
+                            </td>
+                            <td>
+
+                              <div class="text-center">
+                                <a href="pending-user-posts/20"
+                                  class="updateBtn btn btn-sm btn-primary disabled"
+                                  id="20">
+                                  View Posts</a>
+                              </div>
+
+                            </td>
+
+
+
+                          </tr>
+                          
+                          <tr class="odd">
+                            <td>
+                              21
+                            </td>
+                            <td>
+                             <h6 class="m-0"> test user</h6>
+                             <p class="m-0 ">Content Writer</p> 
+                            </td>
+                            <!-- <td>
+                              Content Writer
+                            </td> -->
+                            <td>
+                              0
+                            </td>
+                            <td>
+                              0
+                            </td>
+                            <td>
+
+                              <div class="text-center">
+                                <a href="pending-user-posts/21"
+                                  class="updateBtn btn btn-sm btn-primary disabled"
+                                  id="21">
+                                  View Posts</a>
+                              </div>
+
+                            </td>
+
+
+
+                          </tr>
+                          
+                          <tr class="odd">
+                            <td>
+                              22
+                            </td>
+                            <td>
+                             <h6 class="m-0"> content manager-test</h6>
+                             <p class="m-0 ">Content Manager</p> 
+                            </td>
+                            <!-- <td>
+                              Content Manager
+                            </td> -->
+                            <td>
+                              0
+                            </td>
+                            <td>
+                              0
+                            </td>
+                            <td>
+
+                              <div class="text-center">
+                                <a href="pending-user-posts/22"
+                                  class="updateBtn btn btn-sm btn-primary disabled"
+                                  id="22">
+                                  View Posts</a>
+                              </div>
+
+                            </td>
+
+
+
+                          </tr>
+                          
+                          <tr class="odd">
+                            <td>
+                              24
+                            </td>
+                            <td>
+                             <h6 class="m-0"> Prathamay Kuyre</h6>
+                             <p class="m-0 ">Publisher</p> 
+                            </td>
+                            <!-- <td>
+                              Publisher
+                            </td> -->
+                            <td>
+                              2
+                            </td>
+                            <td>
+                              8
+                            </td>
+                            <td>
+
+                              <div class="text-center">
+                                <a href="pending-user-posts/24"
+                                  class="updateBtn btn btn-sm btn-primary "
+                                  id="24">
+                                  View Posts</a>
+                              </div>
+
+                            </td>
+
+
+
+                          </tr>
+                          
+                          <tr class="odd">
+                            <td>
+                              25
+                            </td>
+                            <td>
+                             <h6 class="m-0"> Purab Bhandari</h6>
+                             <p class="m-0 ">Publisher</p> 
+                            </td>
+                            <!-- <td>
+                              Publisher
+                            </td> -->
+                            <td>
+                              0
+                            </td>
+                            <td>
+                              0
+                            </td>
+                            <td>
+
+                              <div class="text-center">
+                                <a href="pending-user-posts/25"
+                                  class="updateBtn btn btn-sm btn-primary disabled"
+                                  id="25">
+                                  View Posts</a>
+                              </div>
+
+                            </td>
+
+
+
+                          </tr>
+                          
+                          <tr class="odd">
+                            <td>
+                              27
+                            </td>
+                            <td>
+                             <h6 class="m-0"> Aafreen Shaikh</h6>
+                             <p class="m-0 ">Content Writer</p> 
+                            </td>
+                            <!-- <td>
+                              Content Writer
+                            </td> -->
+                            <td>
+                              0
+                            </td>
+                            <td>
+                              0
+                            </td>
+                            <td>
+
+                              <div class="text-center">
+                                <a href="pending-user-posts/27"
+                                  class="updateBtn btn btn-sm btn-primary disabled"
+                                  id="27">
+                                  View Posts</a>
+                              </div>
+
+                            </td>
+
+
+
+                          </tr>
+                          
+                          <tr class="odd">
+                            <td>
+                              29
+                            </td>
+                            <td>
+                             <h6 class="m-0"> Swastika Singha</h6>
+                             <p class="m-0 ">Content Writer</p> 
+                            </td>
+                            <!-- <td>
+                              Content Writer
+                            </td> -->
+                            <td>
+                              0
+                            </td>
+                            <td>
+                              0
+                            </td>
+                            <td>
+
+                              <div class="text-center">
+                                <a href="pending-user-posts/29"
+                                  class="updateBtn btn btn-sm btn-primary disabled"
+                                  id="29">
+                                  View Posts</a>
+                              </div>
+
+                            </td>
+
+
+
+                          </tr>
+                          
+                          <tr class="odd">
+                            <td>
+                              30
+                            </td>
+                            <td>
+                             <h6 class="m-0"> Prajwal Wankhade</h6>
+                             <p class="m-0 ">SEO Team</p> 
+                            </td>
+                            <!-- <td>
+                              SEO Team
+                            </td> -->
+                            <td>
+                              0
+                            </td>
+                            <td>
+                              0
+                            </td>
+                            <td>
+
+                              <div class="text-center">
+                                <a href="pending-user-posts/30"
+                                  class="updateBtn btn btn-sm btn-primary disabled"
+                                  id="30">
+                                  View Posts</a>
+                              </div>
+
+                            </td>
+
+
+
+                          </tr>
+                          
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+
+                <div class="col-md-5 ">
+                  <div class="app_container1">
+                    <h4 class="mb-3">Team Pending Posts</h4>
+                    <table id="teamCountTable" class="row-border table table-striped table-responsive wrap"
+                      width="100%">
+                      <thead>
+                        <tr>
+                          <th>Team Name</th>
+                          <th>Assigned</th>
+                          <th>Draft</th>
+                          <th class="text-center">Action</th>
+                        </tr>
+                      </thead>
+                     
+                      <tbody id="userInfo1">
+                        
+                          <tr class="odd">
+                            <td>
+                              Content Team
+                            </td>
+                            <td>
+                              0
+                            </td>
+                            <td>
+                              0
+                            </td>
+
+                            <td>
+
+
+                              <div class="text-center">
+                                <!-- <a href="pending-team-posts/content-team/2" -->
+                                <a href="pending-team-posts/2"
+                                  class="updateBtn btn btn-sm btn-primary" id="2">
+                                  View Posts
+                                </a>
+                              </div>
+
+
+                            </td>
+
+
+
+                          </tr>
+                          
+                          <tr class="odd">
+                            <td>
+                              SEO Team
+                            </td>
+                            <td>
+                              6
+                            </td>
+                            <td>
+                              6
+                            </td>
+
+                            <td>
+
+
+                              <div class="text-center">
+                                <!-- <a href="pending-team-posts/seo-team/3" -->
+                                <a href="pending-team-posts/3"
+                                  class="updateBtn btn btn-sm btn-primary" id="3">
+                                  View Posts
+                                </a>
+                              </div>
+
+
+                            </td>
+
+
+
+                          </tr>
+                          
+                          <tr class="odd">
+                            <td>
+                              SMO Team
+                            </td>
+                            <td>
+                              1
+                            </td>
+                            <td>
+                              0
+                            </td>
+
+                            <td>
+
+
+                              <div class="text-center">
+                                <!-- <a href="pending-team-posts/smo-team/4" -->
+                                <a href="pending-team-posts/4"
+                                  class="updateBtn btn btn-sm btn-primary" id="4">
+                                  View Posts
+                                </a>
+                              </div>
+
+
+                            </td>
+
+
+
+                          </tr>
+                          
+                      </tbody>
+                    </table>
+                  </div><br>
+                          <!--statstic block  -->
+               
+                            <!-- statstic block  -->
+                </div>
+ 
+
+          
+                
+
+              </div>
+
+              
+
+
+                        <!-- statstics -->
+
+                            <!-- statstics -->
+
+            </div>
+          </div>
+
+
+
+    </div>
+
+        <%- include('partials/contentFooter') %>
+
+
+    </body>
+
+    </html>

@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7" crossorigin="anonymous">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&family=Poppins:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.datatables.net/2.2.2/css/dataTables.dataTables.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/2.2.2/css/dataTables.bootstrap5.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/responsive/3.0.4/css/responsive.bootstrap5.min.css">
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+
+<body>
+
+    <div class="main">
+
+
+
+        <div class="container">
+            <div class="row justify-content-center align-items-center vh-100">
+
+                <div class="col-md-6 border border-primary rounded p-4">
+                    <div class="text-center mb-4">
+                        <h2 class="mb-4" style=" font-weight: 700;">
+                            File Management System
+                        </h2>
+                    </div>
+                    <form id="loginform">
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email</label>
+                            <input type="email" class="form-control" name="email" id="email" required>
+
+                        </div>
+                        <div class="mb-3">
+                            <label for="password" class="form-label">Password</label>
+                            <input type="password" class="form-control" name="password" id="password" required>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                        <div id="login-status" class="text-danger mt-2"></div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <%- include('partials/footer') %>
+
+        <script>
+            $(document).ready(function () {
+
+
+                console.log('jquery');
+
+                $('#loginform').parsley();
+
+                $('#loginform').submit(async function (e) {
+                    e.preventDefault();
+                    const email = $("#email").val();
+                    const password = $("#password").val();
+                    const data = { email, password };
+
+                    try {
+                        await axios.post(`http://localhost:3001/api/users/login`, data, { withCredentials: true });
+                        window.location.href = '/dashboard';
+                    } catch (error) {
+                        console.log(error);
+                        
+                        $('#login-status').html('Login failed: Invalid email or password').show();
+                        setTimeout(() => { $('#login-status').hide(); }, 3000);
+                    }
+
+                    // console.log('form submit');
+
+                    // if ($(this).parsley().isValid()) {
+                    //     console.log('checking valid');
+
+                    //     const email = $("#email").val();
+                    //     const password = $("#password").val();
+
+                    //     const data = { email, password };
+
+
+                    //     try {
+                    //         const response = await axios.post('http://localhost:3001/api/users/login', {
+                    //             email,
+                    //             password
+                    //         }, { withCredentials: true });
+
+                    //         document.cookie = `authToken=${response.token}; path=/; max-age=3600; secure; HttpOnly`;
+                    //         window.location.href = '/dashboard';
+                    //     } catch (error) {
+                    //         console.error('Login failed:', error);
+                    //         // Handle the error appropriately (e.g., show an error message to the user)
+                    //     }
+                    //     // $.ajax({
+                    //     //     url: "http://localhost:3001/api/users/login",
+                    //     //     type: "POST",
+                    //     //     contentType: "application/json",
+                    //     //     data: JSON.stringify(data),
+                    //     //     success: function (response) {
+                    //     //         console.log('login success', response);
+                    //     //         if (response.token) {
+                    //     //             document.cookie = `authToken=${response.token}; path=/; max-age=3600; secure; HttpOnly`;
+                    //     //             localStorage.setItem('authToken', response.token);
+                    //     //         }           
+                    //     //         // On success, redirect to dashboard
+                    //     //         window.location.href = '/dashboard';
+                    //     //     },
+                    //     //     error: function (xhr, status, error) {
+                    //     //         // On failure, show error message
+                    //     //         $('#login-status')
+                    //     //             .html('Login failed: Invalid email or password')
+                    //     //             .show();
+                    //     //         setTimeout(() => { $('#login-status').hide(); }, 3000);
+                    //     //     }
+                    //     // });
+                    // }
+                });
+
+
+            })
+        </script>
+
+</body>
+
+</html>

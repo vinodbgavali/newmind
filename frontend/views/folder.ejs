@@ -1,0 +1,260 @@
+<%- include('partials/header') %>
+  <%- include('partials/sidebar') %>
+
+    <div class="main">
+
+      <%- include('partials/appheader') %>
+
+        <div class="container mt-4">
+          <div class="row">
+            <div class="text-md-end text-center col-md-12 mb-3">
+              <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#createFolder">
+                Add Folder
+              </button>
+              <% if (typeof folderId !=='undefined' ) { %>
+
+                <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#createDocument">Add
+                  document</button>
+                <% } %>
+            </div>
+          </div>
+        </div>
+        <div class="container mt-4">
+          <h4>Folders</h4>
+          <div class="row" id="folder_body">
+           
+          </div>
+          <h4>Documents</h4>
+          <div class="row " id="document_body">
+           
+          </div>
+
+
+        </div>
+
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="createFolder" tabindex="-1" aria-labelledby="createFolderLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="createFolderLabel">Create folder</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <form id="create_folder">
+            <div class="modal-body">
+
+              <div class="mb-3">
+                <label for="folderName" class="form-label">Folder Name</label>
+                <input type="text" class="form-control" id="folderName" name="folderName" required>
+              </div>
+
+
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="submit" class="btn btn-primary">Create Folder</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <% if (typeof folderId !=='undefined' ) { %>
+      <div class="modal fade" id="createDocument" tabindex="-1" aria-labelledby="createDocumentLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="createDocumentLabel">Create Document</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form id="upload_document" enctype="multipart/form-data">
+              <div class="modal-body">
+
+                <div class="mb-3">
+                  <input type="hidden" name="folder" value="<%= folderId %>">
+                  <label for="title" class="form-label">Title</label>
+                  <input type="text" class="form-control" id="title" name="title" required>
+                </div>
+                <div class="mb-3">
+                  <label for="content" class="form-label">Content</label>
+                  <textarea class="form-control" id="content" name="content"></textarea>
+                </div>
+                <div class="mb-3">
+                  <label for="file" class="form-label">Document</label>
+                  <input type="file" class="form-control" id="file" name="file">
+                </div>
+
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">Upload Document</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      <% } %>
+
+
+
+        <%- include('partials/footer') %>
+
+          <script>
+        <% if (typeof folderId !== 'undefined' && folderId) { %>
+          const folderApiUrl = "http://localhost:3002/api/viewstore/<%= folderId %>";
+        <% } else { %>
+          const folderApiUrl = "http://localhost:3002/api/viewstore";
+        <% } %>
+
+
+
+              // Auto-redirect if logged in
+              axios.get(`http://localhost:3001/api/users/validate-token`, { withCredentials: true })
+                .catch(() => {
+                  window.location.href = '/login';
+                });
+
+            async function loadDashboard() {
+              try {
+                //    
+                console.log({ folderApiUrl });
+
+
+
+
+
+                const foldersResponse = await axios.get(folderApiUrl, {
+                  withCredentials: true
+                });
+
+            
+                const folders = foldersResponse.data.data;
+                console.log({folders});
+                console.log(folders.documents);
+                console.log(folders.subfolders);
+
+              
+
+                let folderData = "";
+
+                if (folders.length > 0) {
+                  folders.forEach(folder => {
+                    folderData += `<div class="col-md-4 ">
+                  <div class=" bg-warning-subtle border p-2" >
+                    <div class="card-body">
+                      <h5 class="card-title">${folder.folderName}</h5>
+                      <a href="/folder/${folder.id}" class="btn btn-primary">View</a>
+                      <button class="btn btn-warning" onclick="editFolder(${folder.id}, '${folder.folderName}')">Edit</button>
+                      <button class="btn btn-danger" onclick="deleteFolder(${folder.id})">Delete</button>
+                    </div>
+                  </div>
+                </div>`
+
+                  });
+                } else {
+                  folderData += `<tr><td colspan="4" class="text-center">No folders found</td></tr>`;
+                }
+
+                $('#folder_body').html(folderData);
+               
+
+                let documentData = "";
+                if (folders.documents.length > 0) {
+                    folders.documents.forEach(document => {
+                      console.log('Document ID:', document.id);
+
+                    documentData += `
+                      <div class="col-md-4 mb-2">
+                        <div class=" border p-2">
+                          <div class="card-body">
+                            <h5 class="card-title">${document.title}</h5>
+                            <h6>${document.content}</h6>
+                            <p>${document.file}</p>
+
+                            <!-- Link to the folder this document belongs to -->
+                            <a href="/folder/${document.folder}" class="btn btn-primary">View</a>
+
+                            <!-- Buttons to edit or delete -->
+                            <button class="btn btn-warning" onclick="editFolder(${document.id}, '${document.title}')">Edit</button>
+                            <button class="btn btn-danger" onclick="deleteFolder(${document.id})">Delete</button>
+                          </div>
+                        </div>
+                      </div>`;
+                  });
+                }
+               
+                console.log(documentData);
+
+                $('#document_body').html(documentData);
+
+                // $('#folder_body').append(folderData);
+
+
+              } catch (error) {
+                console.log('alert', error.response?.data?.message || 'Failed to load dashboard');
+              }
+            }
+            
+
+            loadDashboard();
+
+
+            $("#create_folder").on('submit', async function (event) {
+              event.preventDefault();
+
+              // const folderName = $("#folderName").val();
+              // const parentFolder = $("#parentFolder").val() || null; // Get the parent folder value
+
+              const folderName = $("#folderName").val();
+              const parentFolder = $("#parentFolder").val() || null;
+
+
+              try {
+                await axios.post(`http://localhost:3002/api/folders`, { folderName, parentFolder }, { withCredentials: true });
+                window.location.reload();
+              } catch (error) {
+                console.log('alert', error.response?.data?.message || 'Failed to create folder');
+              }
+            });
+
+
+
+
+            $("#upload_document").on('submit', async function (event) {
+              event.preventDefault();
+              const form = event.target;
+              const data = new FormData(form);
+
+              try {
+                const uploadDoc = await axios.post(`http://localhost:3002/api/documents`, data, { withCredentials: true });
+                console.log('uplaodDoc ', uploadDoc);
+           
+                const docId = uploadDoc.data.data.document.id;
+                const fileName = uploadDoc.data.data.document.file;
+                
+                const versionData = {
+                  versionNumber: '1.0',
+                  fileName: fileName
+                };
+                console.log('File dat : ', versionData);
+                const versionResponse = await axios.post(`http://localhost:3003/api/documents/${docId}/version`,versionData,{ withCredentials: true });
+                console.log('Version created:', versionResponse.data);
+
+                console.log('file upload success');
+
+                window.location.reload();
+              } catch (error) {
+                console.log('alert', error.response?.data?.message || 'Failed to create document');
+              }
+            })
+
+
+
+          </script>
+
+          </body>
+
+          </html>
